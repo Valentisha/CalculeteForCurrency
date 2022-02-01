@@ -1,50 +1,60 @@
 <template>
     <div class='base'>
 <ul class='base-row'>
+    <li class="cell1"><div class="content2">Биткоинов:
+     <input v-model='btc' type='number' placeholder="введите количество"/>
+    </div></li>
 <li class="cell1"><div class="content1" >
-    <select>
+    <!-- <select>
   <option value="" >Доллар</option>
   <option value="">Евро</option>
-    </select>
-    <br>
-    <input v-model='dollars' type='number' placeholder="введите количество"/>
+    </select> -->
+    <button @click="changeCourse(100)">Посчитать в долларах</button>
+    <button @click="changeCourse(150)">Посчитать в евро</button>
+    <p>Сумма:{{sum}}</p>
     <!-- <button @click='calculeteDollars' >Посчитать</button> -->
     </div></li>
-<li class="cell1"><div class="content2">Рублей:
-    <p>{{rublesAmount}}</p>
-    </div></li>
+
 </ul>
-<p>Если заплатишь {{dollars}} долларов - получишь {{rublesAmount}} рублей по курсу {{dollarsCours}} за доллар</p>
-<p>Если заплатишь {{euro}} евро - получишь {{rubles}} рублей по курсу {{euroCours}} за евро</p>
+
+{{cours}}
 </div>
 </template>
 
 <script>
+
+import axios from 'axios';
+
 export default {
+    mounted(){
+        this.$nextTick(()=>{
+            this.valya = 55;
+            axios.get('https://api.coingecko.com/api/v3/exchange_rates')
+                .then(function (response) {
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        })
+    },
     data(){
         return {
-            rubles: 0,
-            dollars: 0,
-            euro: 0,
-            dollarsCours: 77,
-            euroCours: 86,
-
-
+            btc: 0,
+            valya: 0,
+            cours: 50,
+            
         }
     },
     methods:{
-        calculeteDollars (){
-            this.rubles = this.dollarsCours * this.dollars;   
-        },
-        calculeteEuro(){
-            this.rubles = this.euroCours * this.euro;
-        },
-        
+       changeCourse(newCourse){
+           this.cours = newCourse;
+       }
     },
     computed:{
-        rublesAmount:{
+        sum:{
             get(){
-                return this.dollars * this.dollarsCours
+                return this.btc * this.cours
             }
         } 
     }
