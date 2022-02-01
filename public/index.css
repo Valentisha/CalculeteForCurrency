@@ -1,0 +1,28 @@
+.base {
+    /*make it 100% width and a minimum of 1000px width*/
+    width: auto;
+    margin-left: 0px;
+    margin-right: 0px;
+    min-width: 1000px;
+    padding: 0px;
+    }
+    .base-row {
+    display: flex;
+    flex-direction: row;
+    }
+    .base li {
+    display: block;
+    width: 33%;
+    }
+    .cell1 {
+    background-color: rgb(189, 165, 165);
+    height: 50px
+    ;
+    }
+    .cell2 {
+    background-color: #0f0;
+    }
+    .cell3 {
+    background-color: #00f;
+    }
+    
