@@ -1,58 +1,87 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+<div>
+  <div class="square">
+    <div class="little-square" @click='reload' :style="'top:' + topsquare + 'px;' + 'left:' + leftsquare + 'px;'" ></div>
   </div>
+  <button @click='right'>→</button>
+  <button @click='left'>←</button>
+  <button @click="up">↑</button>
+  <button @click="down">↓</button>
+{{topsquare}}
+</div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+
+    
+  data(){
+    return{
+    leftsquare: 0,
+    topsquare : 0,
+    }
+  },
+  methods: {
+    up(){
+
+      // if ( this.topsquare - 100 >= 0) {
+// ok norm i'm fine blya
+      // }
+
+      if(this.topsquare >= 100){
+      this.topsquare  = this.topsquare  - 100}
+      
+    },
+    down(){
+
+      console.log(this.topsquare)
+      // 300  
+
+      // if (  (this.topsquare + 100 < 400) )  {
+        // good
+      // } 
+
+
+      if( this.topsquare <= 200){
+      this.topsquare  = this.topsquare  + 100}
+    },
+    left(){
+      if(this.leftsquare >= 100){
+      this.leftsquare = this.leftsquare - 100}
+    },
+    right(){
+      if (this.leftsquare <= 200){
+      this.leftsquare = this.leftsquare + 100}
+    },
+    reload(){
+      this.leftsquare = 0,
+      this.topsquare = 0
+    },
+
+
+
+    moveRight(leftCoord) {
+      return leftCoord + 100;
+    }
+
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
+<style>
+ .square{
+   position: relative;
+   width: 400px;
+   height: 400px;
+   border: 2px solid green;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+  .little-square{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 100px;
+    background: lawngreen;
+    transition: 300ms ease all;
 }
 </style>
