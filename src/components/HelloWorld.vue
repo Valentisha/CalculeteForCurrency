@@ -1,68 +1,73 @@
 <template>
 <div>
   <div class="square">
-    <div class="little-square" @click='reload' :style="'top:' + topsquare + 'px;' + 'left:' + leftsquare + 'px;'" ></div>
+
+    <SquareGreen  :coordinates ='allsquare.square1' :isActive='(activeSquare === allsquare.square1.name)' @click='switchToActive(allsquare.square1.name)'/>
+    <SquareGreen  :coordinates ='allsquare.square2' :isActive='(activeSquare === allsquare.square2.name)' @click='switchToActive(allsquare.square2.name)'/>
+    <!-- <div class="little-square-second"
+         :style="'bottom:' + topsquare + 'px;' + 'right:' + leftsquare + 'px;'"></div> -->
   </div>
+  <fieldset :disabled="!Boolean(activeSquare)" >
   <button @click='right'>→</button>
   <button @click='left'>←</button>
   <button @click="up">↑</button>
   <button @click="down">↓</button>
-{{topsquare}}
+  </fieldset>
+  Активный квадрат: {{activeSquare}}
 </div>
 </template>
 
 <script>
-export default {
+import SquareGreen from './SquareGreen.vue'
 
-    
+
+export default { 
   data(){
     return{
-    leftsquare: 0,
-    topsquare : 0,
+    allsquare: { 
+                square1: {x: 0, y: 0, name: 'square1'}, 
+                square2: {x: 300, y: 300, name: 'square2'}
+                 },
+    activeSquare: null,
+    
     }
   },
+  components: {
+    SquareGreen,
+  },
   methods: {
+
     up(){
-
-      // if ( this.topsquare - 100 >= 0) {
-// ok norm i'm fine blya
-      // }
-
-      if(this.topsquare >= 100){
-      this.topsquare  = this.topsquare  - 100}
+      if(this.allsquare[this.activeSquare].y >= 100){
       
+      this.allsquare[this.activeSquare].y  = this.allsquare[this.activeSquare].y  - 100
+      } 
+
     },
     down(){
+      if( this.allsquare[this.activeSquare].y <= 200){
 
-      console.log(this.topsquare)
-      // 300  
-
-      // if (  (this.topsquare + 100 < 400) )  {
-        // good
-      // } 
-
-
-      if( this.topsquare <= 200){
-      this.topsquare  = this.topsquare  + 100}
+      this.allsquare[this.activeSquare].y  = this.allsquare[this.activeSquare].y  + 100}
     },
     left(){
-      if(this.leftsquare >= 100){
-      this.leftsquare = this.leftsquare - 100}
+      if(this.allsquare[this.activeSquare].x >= 100){
+      this.allsquare[this.activeSquare].x = this.allsquare[this.activeSquare].x - 100}
     },
     right(){
-      if (this.leftsquare <= 200){
-      this.leftsquare = this.leftsquare + 100}
+      if (this.allsquare[this.activeSquare].x <= 200){
+      this.allsquare[this.activeSquare].x = this.allsquare[this.activeSquare].x + 100} 
     },
-    reload(){
+    reloadgreen(){
       this.leftsquare = 0,
       this.topsquare = 0
     },
-
-
-
-    moveRight(leftCoord) {
-      return leftCoord + 100;
-    }
+    switchToActive(name){
+      // this.toBorderForSquare = !this.toBorderForSquare
+      // this.toBorderForSquare2 = !this.toBorderForSquare2
+      this.activeSquare = name
+    },
+   
+    
 
   }
 }
@@ -84,4 +89,6 @@ export default {
     background: lawngreen;
     transition: 300ms ease all;
 }
+  
+  
 </style>
